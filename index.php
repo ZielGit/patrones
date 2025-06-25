@@ -1,17 +1,13 @@
 <?php
 
-use App\solid\srp\EmailService;
-use App\solid\srp\User;
-use App\solid\srp\UserRepository;
+use App\solid\ocp\pagos\Paypal;
+use App\solid\ocp\pagos\Tarjeta;
+use App\solid\ocp\pagos\Transferencia;
+use App\solid\ocp\ProcesadorPagos;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$user = new User('Frans Vilcahuamán', 'frans@gmail.com');
-
-// Store in the database
-$repository = new UserRepository();
-$repository->save($user);
-
-// Notify the user
-$service = new EmailService();
-$service->sendEmail($user);
+$procesador = new ProcesadorPagos();
+$procesador->procesarPago(new Paypal(), 1000.00);
+$procesador->procesarPago(new Tarjeta(), 500.00);
+$procesador->procesarPago(new Transferencia(), 900.00);
