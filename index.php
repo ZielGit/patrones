@@ -1,12 +1,11 @@
 <?php
 
-use App\solid\dip\NotificationService;
-use App\solid\dip\SmsSender;
-use App\solid\dip\User;
+use App\patrones\creacionales\singleton\ConexionDB;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$user = new User('Frans', 'frans@gmail.com', '1234567890');
+$db1 = ConexionDB::getInstance();
+$db1->query("SELECT * FROM users");
 
-$notificationService = new NotificationService(new SmsSender());
-$notificationService->notifyUser($user, 'Bienvenido', 'Hola Frans, bienvenido a nuestro servicio.');
+$db2 = ConexionDB::getInstance();
+$db2->query("SELECT * FROM products");
