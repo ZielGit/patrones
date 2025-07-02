@@ -1,11 +1,12 @@
 <?php
 
-use App\patrones\creacionales\singleton\ConexionDB;
+use App\patrones\creacionales\prototype\User;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$db1 = ConexionDB::getInstance();
-$db1->query("SELECT * FROM users");
+$user1 = new User('Frans', 'frans@gmail.com');
 
-$db2 = ConexionDB::getInstance();
-$db2->query("SELECT * FROM products");
+$user2 = $user1->clone();
+$user2->setName('Frans 2');
+
+echo $user1->getName();
