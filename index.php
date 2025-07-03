@@ -1,12 +1,15 @@
 <?php
 
-use App\patrones\creacionales\prototype\User;
+use App\patrones\creacionales\factory\NotificadorFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$user1 = new User('Frans', 'frans@gmail.com');
+$type = 'sms';
 
-$user2 = $user1->clone();
-$user2->setName('Frans 2');
-
-echo $user1->getName();
+try {
+    $notification = NotificadorFactory::create($type);
+    $notification->sendNotification("Hola, esta es una notificación de prueba por $type.");
+} catch (Exception $e) {
+    echo $e->getMessage() . '<br>';
+    exit;
+}
