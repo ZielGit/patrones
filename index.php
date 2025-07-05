@@ -1,15 +1,15 @@
 <?php
 
-use App\patrones\creacionales\factory\NotificadorFactory;
+use App\patrones\creacionales\abstractFactory\factories\PaypalGatewayFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$type = 'sms';
+$gatewayFactory = new PaypalGatewayFactory();
 
-try {
-    $notification = NotificadorFactory::create($type);
-    $notification->sendNotification("Hola, esta es una notificación de prueba por $type.");
-} catch (Exception $e) {
-    echo $e->getMessage() . '<br>';
-    exit;
-}
+$paymentAuthenticator = $gatewayFactory->createAutheticator();
+$paymentProcessor = $gatewayFactory->createProcessor();
+$paymentValidator = $gatewayFactory->createValidator();
+
+$paymentAuthenticator->authenticate();
+$paymentProcessor->initiatePayment(100.00);
+$paymentValidator->validatePayment('4523589621243');
