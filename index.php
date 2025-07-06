@@ -1,15 +1,17 @@
 <?php
 
-use App\patrones\creacionales\abstractFactory\factories\PaypalGatewayFactory;
+use App\patrones\creacionales\builder\User;
+use App\patrones\creacionales\builder\UserBuilder;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$gatewayFactory = new PaypalGatewayFactory();
+$user = (new UserBuilder())
+    ->setName('Frans')
+    ->setEmail('frans@gmail.com')
+    ->setAddress('jr solar 123')
+    ->setPhone('123456789')
+    ->setPassword('password')
+    ->build();
 
-$paymentAuthenticator = $gatewayFactory->createAutheticator();
-$paymentProcessor = $gatewayFactory->createProcessor();
-$paymentValidator = $gatewayFactory->createValidator();
-
-$paymentAuthenticator->authenticate();
-$paymentProcessor->initiatePayment(100.00);
-$paymentValidator->validatePayment('4523589621243');
+echo "Nombre: " . $user->getName() . '<br>';
+echo "Email: " . $user->getEmail() . '<br>';
