@@ -1,17 +1,8 @@
 <?php
 
-use App\patrones\creacionales\builder\User;
-use App\patrones\creacionales\builder\UserBuilder;
+use App\patrones\estructurales\adapter\factories\NotificationFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$user = (new UserBuilder())
-    ->setName('Frans')
-    ->setEmail('frans@gmail.com')
-    ->setAddress('jr solar 123')
-    ->setPhone('123456789')
-    ->setPassword('password')
-    ->build();
-
-echo "Nombre: " . $user->getName() . '<br>';
-echo "Email: " . $user->getEmail() . '<br>';
+$notification = NotificationFactory::create('email');
+$notification->send('Hola, este es un mensaje de prueba para el adaptador de correo electrónico');
