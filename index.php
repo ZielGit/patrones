@@ -1,8 +1,8 @@
 <?php
 
-use App\patrones\estructurales\adapter\factories\NotificationFactory;
+use App\patrones\estructurales\facade\MailerFacade;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$notification = NotificationFactory::create('email');
-$notification->send('Hola, este es un mensaje de prueba para el adaptador de correo electrónico');
+$mailer = new MailerFacade();
+$mailer->send('frans', '123456', 'Hola, este es un mensaje de prueba');
